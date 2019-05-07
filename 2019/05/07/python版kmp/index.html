@@ -96,15 +96,18 @@
 
 
 
-  <meta name="keywords" content="java,分布式">
+  <meta name="description" content="网上对kmp原理的介绍：找到匹配失败时的最合适的回退位置，而不是简单的回退到子串的第一个字符(常规的枚举查找方式，是简单的回退到子串的第一个字符),即可提高查找的效率. 因此为了找到这个合适的位置,先对子串预处理,从而得到一个回退位置的数组。 理解原理后，在写代码。python实现 1234567891011121314151617181920212223242526272829303132333">
+<meta name="keywords" content="python,a\s">
 <meta property="og:type" content="article">
-<meta property="og:title" content="testhexo">
-<meta property="og:url" content="http://yoursite.com/2019/05/06/testhexo/index.html">
+<meta property="og:title" content="python版kmp">
+<meta property="og:url" content="http://yoursite.com/2019/05/07/python版kmp/index.html">
 <meta property="og:site_name" content="小伙子的博客">
+<meta property="og:description" content="网上对kmp原理的介绍：找到匹配失败时的最合适的回退位置，而不是简单的回退到子串的第一个字符(常规的枚举查找方式，是简单的回退到子串的第一个字符),即可提高查找的效率. 因此为了找到这个合适的位置,先对子串预处理,从而得到一个回退位置的数组。 理解原理后，在写代码。python实现 1234567891011121314151617181920212223242526272829303132333">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-06T15:30:58.413Z">
+<meta property="og:updated_time" content="2019-05-07T13:50:33.932Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="testhexo">
+<meta name="twitter:title" content="python版kmp">
+<meta name="twitter:description" content="网上对kmp原理的介绍：找到匹配失败时的最合适的回退位置，而不是简单的回退到子串的第一个字符(常规的枚举查找方式，是简单的回退到子串的第一个字符),即可提高查找的效率. 因此为了找到这个合适的位置,先对子串预处理,从而得到一个回退位置的数组。 理解原理后，在写代码。python实现 1234567891011121314151617181920212223242526272829303132333">
 
 
 
@@ -112,7 +115,7 @@
 
   
   
-  <link rel="canonical" href="http://yoursite.com/2019/05/06/testhexo/">
+  <link rel="canonical" href="http://yoursite.com/2019/05/07/python版kmp/">
 
 
 
@@ -122,7 +125,7 @@
   };
 </script>
 
-  <title>testhexo | 小伙子的博客</title>
+  <title>python版kmp | 小伙子的博客</title>
   
 
 
@@ -345,7 +348,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/06/testhexo/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/07/python版kmp/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="chile chen">
@@ -362,7 +365,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">testhexo
+          <h1 class="post-title" itemprop="name headline">python版kmp
 
               
             
@@ -388,7 +391,7 @@
                 
               
 
-              <time title="Erstellt: 2019-05-06 22:22:18 / Geändert am: 23:30:58" itemprop="dateCreated datePublished" datetime="2019-05-06T22:22:18+08:00">2019-05-06</time>
+              <time title="Erstellt: 2019-05-07 21:47:12 / Geändert am: 21:50:33" itemprop="dateCreated datePublished" datetime="2019-05-07T21:47:12+08:00">2019-05-07</time>
             
 
             
@@ -410,7 +413,7 @@
                 <span class="post-meta-item-text">in</span>
               
               
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/学习笔记/" itemprop="url" rel="index"><span itemprop="name">学习笔记</span></a></span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/python/" itemprop="url" rel="index"><span itemprop="name">python</span></a></span>
 
                 
                 
@@ -445,7 +448,10 @@
       
 
       
-        
+        <p>网上对kmp原理的介绍：找到匹配失败时的最合适的回退位置，而不是简单的回退到子串的第一个字符(常规的枚举查找方式，是简单的回退到子串的第一个字符),即可提高查找的效率.<br> 因此为了找到这个合适的位置,先对子串预处理,从而得到一个回退位置的数组。</p>
+<p>理解原理后，在写代码。python实现</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># -*- coding: cp936 -*-  </span></span><br><span class="line"><span class="comment">#---------------------------------------------  </span></span><br><span class="line"><span class="comment">#                                            -  </span></span><br><span class="line"><span class="comment">#author  chile                            -  </span></span><br><span class="line"><span class="comment">#version 1.0                               -  </span></span><br><span class="line"><span class="comment">#since                                       -  </span></span><br><span class="line"><span class="comment">#date  2014-02-17                                      -  </span></span><br><span class="line"><span class="comment">#desc kmp查找字符串                                       -  </span></span><br><span class="line"><span class="comment">#                                            -  </span></span><br><span class="line"><span class="comment">#                                            -  </span></span><br><span class="line"><span class="comment">#                                            -  </span></span><br><span class="line"><span class="comment">#---------------------------------------------  </span></span><br><span class="line">  </span><br><span class="line"><span class="comment">#对子串加以预处理，找到匹配失败时子串回退的位置  </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">preprocess</span><span class="params">(patter)</span>:</span>  </span><br><span class="line">    length = len(patter)  </span><br><span class="line">    p = handlerList(length)  </span><br><span class="line">    j = <span class="number">-1</span>  </span><br><span class="line">    p[<span class="number">0</span>] = j   </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,length):  </span><br><span class="line">        j = p[i - <span class="number">1</span>]  </span><br><span class="line">        <span class="keyword">while</span> j &gt;= <span class="number">0</span> <span class="keyword">and</span> patter[i] != patter[j+<span class="number">1</span>]:  </span><br><span class="line">            j = p[j]  </span><br><span class="line">          </span><br><span class="line">        <span class="keyword">if</span> patter[i] == patter[j+<span class="number">1</span>]: <span class="comment">#含有重复字符时，回退的位置+1  </span></span><br><span class="line">            p[i] = j + <span class="number">1</span>  </span><br><span class="line">        <span class="keyword">else</span>:  </span><br><span class="line">            p[i] = <span class="number">-1</span>  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">return</span> p  </span><br><span class="line">  </span><br><span class="line"><span class="comment">#初始化一个元组  </span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">handlerList</span><span class="params">(len,default = <span class="number">0</span>)</span>:</span>  </span><br><span class="line">    <span class="keyword">if</span> len &lt;= <span class="number">0</span>:  </span><br><span class="line">        <span class="keyword">return</span>  </span><br><span class="line">    p = []  </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len):  </span><br><span class="line">        p.append(default)  </span><br><span class="line">    <span class="keyword">return</span> p  </span><br><span class="line">  </span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">kmp</span><span class="params">(value,pattern)</span>:</span>  </span><br><span class="line">    srcSize = len(value)  </span><br><span class="line">    subSize = len(pattern)  </span><br><span class="line">    p = preprocess(pattern)  </span><br><span class="line">    tIndex , pIndex ,total = <span class="number">0</span> , <span class="number">0</span> , <span class="number">0</span>  </span><br><span class="line">    <span class="keyword">while</span> tIndex &lt; srcSize <span class="keyword">and</span> pIndex &lt; subSize: <span class="comment">#找到合适的回退位置  </span></span><br><span class="line">        <span class="keyword">if</span> (value[tIndex] == pattern[pIndex]):  </span><br><span class="line">            tIndex += <span class="number">1</span>  </span><br><span class="line">            pIndex += <span class="number">1</span>  </span><br><span class="line">        <span class="keyword">elif</span> pIndex == <span class="number">0</span>:  </span><br><span class="line">            tIndex += <span class="number">1</span>  </span><br><span class="line">        <span class="keyword">else</span>:  </span><br><span class="line">            pIndex = p[pIndex - <span class="number">1</span>] + <span class="number">1</span>  </span><br><span class="line">         </span><br><span class="line">        <span class="keyword">if</span> pIndex == subSize:  <span class="comment">#输出匹配结果，并且让比较继续下去  </span></span><br><span class="line">            pIndex = <span class="number">0</span>  </span><br><span class="line">            total += <span class="number">1</span>  </span><br><span class="line">            <span class="keyword">print</span> <span class="string">'find'</span>,pattern,<span class="string">'at'</span>,(tIndex - subSize)  </span><br><span class="line">    <span class="keyword">print</span> <span class="string">'find times '</span> , total  </span><br><span class="line">  </span><br><span class="line">      </span><br><span class="line">var = <span class="string">'abadfafdewefwfafd'</span>  </span><br><span class="line">pattern =<span class="string">'afd'</span>  </span><br><span class="line">kmp(var,pattern)</span><br></pre></td></tr></table></figure>
+
       
     </div>
 
@@ -468,9 +474,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
+            <a href="/tags/python/" rel="tag"># python</a>
           
-            <a href="/tags/分布式/" rel="tag"># 分布式</a>
+            <a href="/tags/a-s/" rel="tag"># a\s</a>
           
         </div>
       
@@ -483,8 +489,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/05/06/hello-world/" rel="next" title="Hello World">
-                <i class="fa fa-chevron-left"></i> Hello World
+              <a href="/2019/05/07/简单的归并排序/" rel="next" title="简单的归并排序">
+                <i class="fa fa-chevron-left"></i> 简单的归并排序
               </a>
             
           </div>
@@ -493,8 +499,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2019/05/07/python简单实现hashmap/" rel="prev" title="python简单实现hashmap">
-                python简单实现hashmap <i class="fa fa-chevron-right"></i>
+              <a href="/2019/05/07/最小序列问题/" rel="prev" title="最小序列问题">
+                最小序列问题 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
